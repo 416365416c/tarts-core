@@ -31,7 +31,9 @@ SOURCES += main.cpp \
     player.cpp \
     doodad.cpp \
     buildable.cpp \
-    combatant.cpp
+    combatant.cpp \
+    movingunit.cpp \
+    waypoint.cpp
 
 # Please do not modify the following two lines. Required for deployment.
 include(qmlapplicationviewer/qmlapplicationviewer.pri)
@@ -43,4 +45,6 @@ HEADERS += \
     player.h \
     doodad.h \
     buildable.h \
-    combatant.h
+    combatant.h \
+    movingunit.h \
+    waypoint.h

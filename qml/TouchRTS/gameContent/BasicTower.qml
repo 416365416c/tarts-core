@@ -1,7 +1,7 @@
 import QtQuick 1.0
 import TouchRTS 0.1
 
-Combatant{
+Unit{
     id: container
     Component{
         id: laserComponent
@@ -17,7 +17,6 @@ Combatant{
             return;
         var laser = laserComponent.createObject(container);
         laser.target = target;
-        console.log("IMMA FIRIN MAH LAZER")
     }
 
     Rectangle{
@@ -37,6 +36,6 @@ Combatant{
         interval: 2000
         repeat: true
         running: true
-        onTriggered: {fire();        console.log("IMMA GONNA FIRIN MAH LAZER");}
+        onTriggered: {fire();}//Multiple firings might be QTBUG-18126? Doesn't happen in 2.0
     }
 }

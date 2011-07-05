@@ -1,7 +1,7 @@
 import QtQuick 1.0
 import TouchRTS 0.1
 
-Combatant{
+Unit{
     id: container
     hp: 10;
     onHpChanged: if(hp<=0) container.kill();

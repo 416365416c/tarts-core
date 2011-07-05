@@ -8,6 +8,8 @@
 #include "doodad.h"
 #include "buildable.h"
 #include "combatant.h"
+#include "movingunit.h"
+#include "waypoint.h"
 
 int main(int argc, char *argv[])
 {
@@ -18,8 +20,10 @@ int main(int argc, char *argv[])
     qmlRegisterType<Map>(uri, 0, 1, "Map");
     qmlRegisterType<Player>(uri, 0, 1, "Player");
     qmlRegisterType<Doodad>(uri, 0, 1, "Doodad");
-    qmlRegisterType<Buildable>(uri, 0, 1, "Buildable");
-    qmlRegisterType<Unit>(uri, 0, 1, "Combatant");
+    qmlRegisterType<Buildable>(uri, 0, 1, "BuildOption");
+    qmlRegisterType<Unit>(uri, 0, 1, "Unit");
+    qmlRegisterType<MovingUnit>(uri, 0, 1, "MovingUnit");
+    qmlRegisterType<Waypoint>(uri, 0, 1, "Waypoint");
     QmlApplicationViewer viewer;
     Game::instance()->setEngine(viewer.engine());
     viewer.rootContext()->setContextProperty("game", Game::instance());
