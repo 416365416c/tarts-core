@@ -7,7 +7,7 @@ Map {
         Player{
             id: redPlayer
             hq: GenericGame.BasicHQ{}
-            buildOptions: GenericGame.BasicBuildable{}
+            buildOptions: BuildOption{GenericGame.BasicFactory{}}
             color: "red"
             startPos: "150,40"
         }
@@ -26,6 +26,26 @@ Map {
     Image{
         source: "cheeseTile.jpg"
         fillMode: Image.Tile;
+    }
+    GenericGame.BasicTower{
+        player: bluePlayer
+        x: 100
+        y: 210
+    }
+    GenericGame.BasicTower{
+        player: bluePlayer
+        x: 100
+        y: 310
+    }
+    GenericGame.BasicTower{
+        player: bluePlayer
+        x: 200
+        y: 210
+    }
+    GenericGame.BasicTower{
+        player: bluePlayer
+        x: 200
+        y: 310
     }
     Doodad{//Tree
         x: 60

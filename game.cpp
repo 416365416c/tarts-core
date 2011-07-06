@@ -154,8 +154,10 @@ Unit* Game::findTarget(int range, Unit* attacker)
 
 void Game::cleanUp(Unit* unit)
 {
-    foreach(Player* player, m_players)
-        player->m_units.removeAll(unit);
+    unit->m_player->m_units.removeAll(unit);
+    MovingUnit* munit = qobject_cast<MovingUnit*>(unit);
+    if(munit && munit->m_wave)
+        munit->m_wave->units.removeAll(munit);
     unit->deleteLater();
 }
 

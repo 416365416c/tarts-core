@@ -65,6 +65,7 @@ Unit{
     }
     Timer{
         interval: 6000
+        triggeredOnStart: true
         repeat: true
         running: true
         onTriggered: {fire();}//Multiple firings might be QTBUG-18126? Doesn't happen in 2.0

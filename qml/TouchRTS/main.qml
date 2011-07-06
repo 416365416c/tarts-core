@@ -14,7 +14,8 @@ Rectangle {
         height: 400
         model: [
             "map0",
-            "map1"
+            "map1",
+            "map2"
         ]
         delegate: Button{
             text: "Load " + modelData;

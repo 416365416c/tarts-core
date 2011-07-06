@@ -7,7 +7,7 @@ Map {
         Player{
             id: redPlayer
             hq: GenericGame.BasicHQ{}
-            buildOptions: GenericGame.BasicBuildable{}
+            buildOptions: BuildOption{GenericGame.BasicFactory{}}
             color: "red"
             startPos: "150,40"
         }
