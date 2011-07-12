@@ -1,0 +1,13 @@
+Basic Architecture:
+
+Game is a C++ singleton, exposed with utility methods to QML.
+These methods can add Objects to the game state
+Map,BuildOption,Unit,MovingUnit,Doodad and Waypoint are all QDeclarativeItems affecting gamestate
+Player is a QObject, but it's also created/manipulated in QML.
+
+Map ties all these together, a Map is loaded into the game state to start with. Its players and units
+become the starting game state.
+
+Call Game functions to further affect the game state.
+
+The Game has an internal tick to manipulate the state of its controlled objects so as to advance the game.

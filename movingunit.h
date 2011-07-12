@@ -7,6 +7,7 @@ class Wave;
 class MovingUnit : public Unit
 {
     Q_OBJECT
+    //Q_PROPERTY(int directionOfMovement)//Bind to facing? Or automatic?
     Q_PROPERTY(Waypoint* destination READ destination WRITE setDestination NOTIFY destinationChanged)
     Q_PROPERTY(qreal speed READ speed WRITE setSpeed NOTIFY speedChanged)
     Q_PROPERTY(int stoppingRange READ stoppingRange WRITE setStoppingRange NOTIFY stoppingRangeChanged)

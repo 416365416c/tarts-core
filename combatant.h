@@ -7,9 +7,13 @@ class Player;
 class Unit : public QDeclarativeItem
 {
     Q_OBJECT
-    //TODO: Rotation
+    //TODO: Below (commented) Properties are planned
+    //Q_PROPERTY(int facing READ facing WRITE setFacing NOTIFY facingChanged)
+    //Q_PROPERTY(QDeclarativeListProperty<Ability> abilities READ abilities)
+    //Ability would be a class encapsulating automatically targeted abilities, because they're damn complex blighters it seems :(
     Q_PROPERTY(int hp READ hp WRITE setHP NOTIFY hpChanged)
     Q_PROPERTY(Player* player READ player WRITE setPlayer NOTIFY playerChanged)
+
 public:
     explicit Unit(QDeclarativeItem *parent = 0);
     Q_INVOKABLE Unit* getTarget(int range);
