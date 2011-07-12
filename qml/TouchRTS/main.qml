@@ -24,16 +24,61 @@ Rectangle {
         }
     }
 
+    ListView{
+        id: builder0
+        y: 40; x: 120
+        width: 64
+        height: 400
+        model: game.players[0].buildOptions
+        delegate: Image{
+            source: iconSource
+            MouseArea{
+                anchors.fill: parent
+                onClicked: builder0.currentIndex = index;
+            }
+            Rectangle{
+                anchors.fill: parent
+                border.color: ListView.isCurrentItem?game.players[0].color:"black"
+                border.width: 8
+                z: -1
+            }
+        }
+    }
+    ListView{
+        y: 40; x: 200
+        width: 64
+        height: 400
+        id: builder1
+        model: game.players[1].buildOptions
+        delegate: Image{
+            source: iconSource
+            MouseArea{
+                anchors.fill: parent
+                onClicked: builder1.currentIndex = index;
+            }
+            Rectangle{
+                anchors.fill: parent
+                border.color: ListView.isCurrentItem?game.players[1].color:"black"
+                border.width: 8
+                z: -1
+            }
+        }
+    }
+
     Item{
         id: gameArea
         MouseArea{
 	    acceptedButtons: Qt.LeftButton | Qt.RightButton
             anchors.fill: parent
             onClicked:{
-		var buildOption = 0;
+		var player = 0;
 		if(mouse.button == Qt.RightButton)
-		    buildOption = 1;
-		game.build(mouse.x, mouse.y, game.players[0].buildOptions[buildOption]);
+		    player = 1;
+                var idx = builder0.currentIndex;
+                if(player == 1)
+                    idx = builder1.currentIndex;
+                console.log("Building " + player + ", " + idx);
+                game.build(mouse.x, mouse.y, game.players[player].buildOptions[idx],player);
             }
         }
 

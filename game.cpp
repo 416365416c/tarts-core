@@ -110,7 +110,7 @@ void Game::finishLoad(){
     playersChanged(m_players);
 
     m_gameOver = false;
-    //HQs
+    //HQs (must be unit[0])
     for(int i=0; i<m_players.size(); i++)
         build(m_players[i]->startPos().x(), m_players[i]->startPos().y(), m_players[i]->hq(), i);
     //Other starting units
@@ -241,13 +241,18 @@ Waypoint* Game::createWaypoint(int x, int y, int playerIdx)
     m_players[playerIdx]->m_waypoints << ret;
     ret->setX(x);
     ret->setY(y);
-    ret->setNext(m_players[playerIdx]->m_waypoints[0]);//XXX HACK
+    ret->setNext(m_players[playerIdx]->m_waypoints[0]);//XXX HACK?
     return ret;
 }
 
 Player* Game::player(int idx)
 {
     return m_players[idx];
+}
+
+int Game::playerIdx(Player* player)
+{
+    return m_players.indexOf(player);
 }
 
 void Game::gameTick()
@@ -258,6 +263,11 @@ void Game::gameTick()
             MovingUnit* munit = qobject_cast<MovingUnit*>(unit);
             if(!munit)//TODO: Perhaps a second list would be faster?
                 continue;
+            if(!munit->destination()){
+                qDebug() << "Error: " << munit << " had no destination";
+                cleanUp(munit);
+                continue;
+            }
             if(unitAtWaypoint(munit) && !munit->m_wave)
                 addUnitToWaypoint(munit, munit->destination());
             else if(!munit->m_wave)

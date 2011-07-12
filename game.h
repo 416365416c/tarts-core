@@ -45,7 +45,8 @@ public:
 
     Q_INVOKABLE void registerDebugText(QObject* obj);
     Q_INVOKABLE void debugPrint(const QString &str);
-    Q_INVOKABLE Player* player(int idx);
+    Q_INVOKABLE Player* player(int idx);//TODO: Pick one and use it everywhere!
+    Q_INVOKABLE int playerIdx(Player* player);
     Q_INVOKABLE Waypoint* createWaypoint(int x, int y, int playerIdx);
 
     Unit* findTarget(int range, Unit*);

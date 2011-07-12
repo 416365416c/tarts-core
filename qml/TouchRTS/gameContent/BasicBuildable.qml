@@ -3,6 +3,6 @@ import TouchRTS 0.1
 
 BuildOption{
     cost: 1
-    iconSource: ""
+    iconSource: "content/towerIcon.png"
     BasicTower{}
 }
