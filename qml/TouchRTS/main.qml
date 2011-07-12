@@ -15,7 +15,8 @@ Rectangle {
         model: [
             "map0",
             "map1",
-            "map2"
+            "map2",
+            "map3"
         ]
         delegate: Button{
             text: "Load " + modelData;
@@ -26,8 +27,14 @@ Rectangle {
     Item{
         id: gameArea
         MouseArea{
+	    acceptedButtons: Qt.LeftButton | Qt.RightButton
             anchors.fill: parent
-            onClicked: game.build(mouse.x, mouse.y, game.players[0].buildOptions[0]);
+            onClicked:{
+		var buildOption = 0;
+		if(mouse.button == Qt.RightButton)
+		    buildOption = 1;
+		game.build(mouse.x, mouse.y, game.players[0].buildOptions[buildOption]);
+            }
         }
 
         x:400

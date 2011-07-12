@@ -108,12 +108,13 @@ void Game::finishLoad(){
     m_players = m_currentMap->m_players;//Yes, we share references.
     qDebug() << "Loading Map" << m_currentMap << m_players;
     playersChanged(m_players);
-    recursiveLoadStartState(m_currentMap);
 
     m_gameOver = false;
     //HQs
     for(int i=0; i<m_players.size(); i++)
         build(m_players[i]->startPos().x(), m_players[i]->startPos().y(), m_players[i]->hq(), i);
+    //Other starting units
+    recursiveLoadStartState(m_currentMap);
     //Sentinel Waypoints
     m_players[0]->m_waypoints << new Waypoint(m_players[0], m_players[1]->m_units[0], m_currentMap);
     m_players[1]->m_waypoints << new Waypoint(m_players[1], m_players[0]->m_units[0], m_currentMap);
@@ -127,6 +128,7 @@ void Game::recursiveLoadStartState(QGraphicsItem *node)
         Unit* startingUnit = qobject_cast<Unit*>(child->toGraphicsObject());
         if(startingUnit){
             startingUnit->player()->m_units << startingUnit;
+            startingUnit->born();
         }
         Doodad* doodad = qobject_cast<Doodad*>(child->toGraphicsObject());
         if(doodad){
