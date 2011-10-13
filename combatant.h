@@ -12,6 +12,7 @@ class Unit : public QDeclarativeItem
     //Q_PROPERTY(QDeclarativeListProperty<Ability> abilities READ abilities)
     //Ability would be a class encapsulating automatically targeted abilities, because they're damn complex blighters it seems :(
     Q_PROPERTY(int hp READ hp WRITE setHP NOTIFY hpChanged)
+    Q_PROPERTY(bool sink READ isSink WRITE setSink NOTIFY sinkChanged)
     Q_PROPERTY(Player* player READ player WRITE setPlayer NOTIFY playerChanged)
 
 public:
@@ -28,11 +29,20 @@ public:
         return m_player;
     }
 
+    bool isSink() const
+    {
+        return m_sink;
+    }
+
 signals:
     void born();
     void hpChanged(int arg);
 
     void playerChanged(Player* arg);
+
+    void sinkChanged(bool arg);
+
+    void sunk(Unit* otherUnit);
 
 public slots:
     void kill();//Destroy is QML one...
@@ -53,10 +63,19 @@ public slots:
         }
     }
 
+    void setSink(bool arg)
+    {
+        if (m_sink != arg) {
+            m_sink = arg;
+            emit sinkChanged(arg);
+        }
+    }
+
 private:
     friend class Game;
     int m_hp;
     Player* m_player;
+    bool m_sink;
 };
 
 #endif // COMBATANT_H

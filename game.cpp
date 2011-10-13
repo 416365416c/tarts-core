@@ -406,8 +406,13 @@ bool Game::tryMove(Unit* u, int x, int y)
             if(u==u2)
                 continue;
             QRect otherRect(u2->x(), u2->y(), u2->width(), u2->height());
-            if(newRect.intersects(otherRect))
-                return false;
+            if(newRect.intersects(otherRect)){
+                if(!u2->isSink())
+                    return false;
+                //Sink Eats it
+                u2->sunk(u);
+                return true;
+            }
         }
     }
     if(x)

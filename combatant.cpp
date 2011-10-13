@@ -2,11 +2,11 @@
 #include "game.h"
 
 Unit::Unit(QDeclarativeItem *parent) :
-    QDeclarativeItem(parent), m_player(0)
+    QDeclarativeItem(parent), m_player(0), m_sink(false)
 {
 }
 
-Unit* Unit::getTarget(int range)//TODO: need to distinguish flying units?
+Unit* Unit::getTarget(int range)//TODO: need to distinguish flying units? Or other 'types'?
 {
     return Game::instance()->findTarget(range, this);
 }
