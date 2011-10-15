@@ -4,5 +4,9 @@ import TouchRTS 0.1
 BuildOption{
     cost: 1
     iconSource: ""
-    BasicTower{hp:100}
+    needsControl: false
+    BasicTower{
+        hp:100
+        nodeRadius: 256
+    }
 }

@@ -7,6 +7,15 @@ Unit{
         id: laserComponent
         LaserProjectile{}
     }
+    Component{
+        id: nodeVisualization
+        Circle{
+            radius: parent.nodeRadius
+            anchors.centerIn: parent
+            opacity: 0.2
+        }
+    }
+
     hp: 10;
     onHpChanged: if(hp<=0) container.kill();
     width: 20
@@ -31,11 +40,18 @@ Unit{
         text: hp
     }
 
-    onBorn: rect.color = container.player.color;
+    onBorn: {
+        rect.color = container.player.color;
+        if(nodeRadius > 0){
+            var nodeVis = nodeVisualization.createObject(container);
+            nodeVis.color = container.player.color;
+        }
+    }
     Timer{
         interval: 2000
         repeat: true
         running: true
         onTriggered: {fire();}//Multiple firings might be QTBUG-18126? Doesn't happen in 2.0
     }
+
 }

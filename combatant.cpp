@@ -2,7 +2,7 @@
 #include "game.h"
 
 Unit::Unit(QDeclarativeItem *parent) :
-    QDeclarativeItem(parent), m_player(0), m_sink(false)
+    QDeclarativeItem(parent), m_player(0), m_sink(false), m_nodeRadius(0)
 {
 }
 

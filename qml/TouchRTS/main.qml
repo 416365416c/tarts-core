@@ -77,8 +77,8 @@ Rectangle {
                 var idx = builder0.currentIndex;
                 if(player == 1)
                     idx = builder1.currentIndex;
-                console.log("Building " + player + ", " + idx);
-                game.build(mouse.x, mouse.y, game.players[player].buildOptions[idx],player);
+                var resBool = game.build(mouse.x, mouse.y, game.players[player].buildOptions[idx],player);
+                console.log("Building " + player + ", " + idx + " happened? " + resBool);
             }
         }
 

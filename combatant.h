@@ -14,6 +14,8 @@ class Unit : public QDeclarativeItem
     Q_PROPERTY(int hp READ hp WRITE setHP NOTIFY hpChanged)
     Q_PROPERTY(bool sink READ isSink WRITE setSink NOTIFY sinkChanged)
     Q_PROPERTY(Player* player READ player WRITE setPlayer NOTIFY playerChanged)
+    //NodeRadius is how much area it 'controls', 0 for not a node
+    Q_PROPERTY(int nodeRadius READ nodeRadius WRITE setNodeRadius NOTIFY nodeRadiusChanged)
 
 public:
     explicit Unit(QDeclarativeItem *parent = 0);
@@ -34,6 +36,11 @@ public:
         return m_sink;
     }
 
+    int nodeRadius() const
+    {
+        return m_nodeRadius;
+    }
+
 signals:
     void born();
     void hpChanged(int arg);
@@ -43,6 +50,8 @@ signals:
     void sinkChanged(bool arg);
 
     void sunk(Unit* otherUnit);
+
+    void nodeRadiusChanged(int arg);
 
 public slots:
     void kill();//Destroy is QML one...
@@ -71,11 +80,20 @@ public slots:
         }
     }
 
+    void setNodeRadius(int arg)
+    {
+        if (m_nodeRadius != arg) {
+            m_nodeRadius = arg;
+            emit nodeRadiusChanged(arg);
+        }
+    }
+
 private:
     friend class Game;
     int m_hp;
     Player* m_player;
     bool m_sink;
+    int m_nodeRadius;
 };
 
 #endif // COMBATANT_H

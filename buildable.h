@@ -11,6 +11,8 @@ class Buildable : public QObject
     //TODO: Build time and tech requirements
     Q_PROPERTY(int cost READ cost WRITE setCost NOTIFY costChanged)
     Q_PROPERTY(QUrl iconSource READ iconSource WRITE setIconSource NOTIFY iconSourceChanged)
+    //If true (default) must be built near an owned node
+    Q_PROPERTY(bool needsControl READ needsControl WRITE setNeedsControl NOTIFY needsControlChanged)
     //Delegate root object MUST be combatant? Or who cares?
     Q_CLASSINFO("DefaultProperty", "delegate")
     Q_PROPERTY(QDeclarativeComponent* delegate READ delegate WRITE setDelegate NOTIFY delegateChanged)
@@ -32,6 +34,11 @@ public:
         return m_delegate;
     }
 
+    bool needsControl() const
+    {
+        return m_needsControl;
+    }
+
 signals:
 
     void costChanged(int arg);
@@ -39,6 +46,8 @@ signals:
     void iconSourceChanged(QUrl arg);
 
     void delegateChanged(QDeclarativeComponent* arg);
+
+    void needsControlChanged(bool arg);
 
 public slots:
 
@@ -66,11 +75,20 @@ void setDelegate(QDeclarativeComponent* arg)
     }
 }
 
+void setNeedsControl(bool arg)
+{
+    if (m_needsControl != arg) {
+        m_needsControl = arg;
+        emit needsControlChanged(arg);
+    }
+}
+
 private:
 
 int m_cost;
 QUrl m_iconSource;
 QDeclarativeComponent* m_delegate;
+bool m_needsControl;
 };
 
 #endif // BUILDABLE_H

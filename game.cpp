@@ -111,8 +111,10 @@ void Game::finishLoad(){
 
     m_gameOver = false;
     //HQs (must be unit[0])
+    bool hqsBuilt = true;
     for(int i=0; i<m_players.size(); i++)
-        build(m_players[i]->startPos().x(), m_players[i]->startPos().y(), m_players[i]->hq(), i);
+        hqsBuilt = build(m_players[i]->startPos().x(), m_players[i]->startPos().y(), m_players[i]->hq(), i) && hqsBuilt;
+    Q_ASSERT(hqsBuilt);//TODO: Nicer error handling, this was just a QML error
     //Other starting units
     recursiveLoadStartState(m_currentMap);
     //Sentinel Waypoints
@@ -156,7 +158,7 @@ Unit* Game::findTarget(int range, Unit* attacker)
 
 void Game::cleanUp(Unit* unit)
 {
-    unit->m_player->m_units.removeAll(unit);
+    unit->m_player->disownUnit(unit);
     MovingUnit* munit = qobject_cast<MovingUnit*>(unit);
     if(munit && munit->m_wave)
         munit->m_wave->units.removeAll(munit);
@@ -167,33 +169,43 @@ bool Game::build(int x, int y, Buildable* b, int playerIdx, Waypoint* dest)
 {
     if(m_gameOver)
         return false;
+
     QDeclarativeComponent* cc = b->delegate();
     QObject* obj = cc->create(qmlContext(m_currentMap));
     Unit* unit = qobject_cast<Unit*>(obj);
     if(!unit){
+        delete obj;
         qDebug() << "Error in build - not a game object";
-    }else{
-        unit->setX(x);
-        unit->setY(y);
-        foreach(Player* player, m_players){
-            foreach(Unit* other, player->m_units){
-                if(collide(unit, other)){
-                    delete unit;
-                    return false;
-                }
+        return false;
+    }
+    unit->setX(x);
+    unit->setY(y);
+    if(b->needsControl()){
+        bool inControl = false;
+        foreach(Unit* node, m_players[playerIdx]->m_nodes)
+            if(withinRange(unit,node->nodeRadius(), node))
+                inControl = true;
+        if(!inControl){
+            delete unit;
+            return false;
+        }
+    }
+    foreach(Player* player, m_players){
+        foreach(Unit* other, player->m_units){
+            if(collide(unit, other)){
+                delete unit;
+                return false;
             }
         }
-
-        unit->setParentItem(m_currentMap);
-        unit->setPlayer(m_players[playerIdx]);
-        m_players[playerIdx]->m_units << unit;
-        if(!qobject_cast<MovingUnit*>(unit))//stationary
-            calcAPSP();
-        else{
-            qobject_cast<MovingUnit*>(unit)->setDestination(dest);
-        }
-        unit->born();
     }
+
+    unit->setParentItem(m_currentMap);
+    m_players[playerIdx]->ownUnit(unit);
+    if(!qobject_cast<MovingUnit*>(unit))//stationary
+        calcAPSP();
+    else
+        qobject_cast<MovingUnit*>(unit)->setDestination(dest);
+    unit->born();
     return true;
 }
 

@@ -80,7 +80,10 @@ private:
     QPoint m_startPos;
     QColor m_color;
     QList<Buildable*> m_buildOptions;
+    void ownUnit(Unit*);
+    void disownUnit(Unit*);
     QList<Unit*> m_units;
+    QList<Unit*> m_nodes;//All in units too, but an optimization
     QList<Waypoint*> m_waypoints;
 };
 
