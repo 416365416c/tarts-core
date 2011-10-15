@@ -5,7 +5,7 @@
 
 class Player;
 class MovingUnit;
-class Waypoint : public QDeclarativeItem
+class Waypoint : public QDeclarativeItem//Object, not Item, because it's data to be
 {
     Q_OBJECT
     Q_PROPERTY(Waypoint* next READ next WRITE setNext NOTIFY nextChanged)

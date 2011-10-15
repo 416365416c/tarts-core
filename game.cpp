@@ -254,6 +254,7 @@ Waypoint* Game::createWaypoint(int x, int y, int playerIdx)
     ret->setX(x);
     ret->setY(y);
     ret->setNext(m_players[playerIdx]->m_waypoints[0]);//XXX HACK?
+    m_players[playerIdx]->waypointsChanged();
     return ret;
 }
 

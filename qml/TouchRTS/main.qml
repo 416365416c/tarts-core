@@ -81,6 +81,12 @@ Rectangle {
                 console.log("Building " + player + ", " + idx + " happened? " + resBool);
             }
         }
+        Repeater{
+            model: game.players[0].waypoints
+            delegate: WaypointDelegate{
+                 z: 1000
+            }
+        }
 
         x:400
         height: 400

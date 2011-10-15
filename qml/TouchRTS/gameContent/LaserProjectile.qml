@@ -18,7 +18,7 @@ Item {
                 ret = (ret+360);
             return ret;
         }
-	Rectangle { color: "blue"; radius: 2;
+        Rectangle { color: "green"; radius: 2;
             x: parent.width/2
             y: parent.height/2
             width: mag(deltaX(p.parent,target), deltaY(p.parent,target));

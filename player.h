@@ -20,7 +20,7 @@ class Player : public QObject
 
     //TODO: Use the custom append function to remove units from any other player lists if you add them here.
     Q_PROPERTY(QDeclarativeListProperty<Unit> units READ units)
-    Q_PROPERTY(QDeclarativeListProperty<Waypoint> waypoints READ waypoints)
+    Q_PROPERTY(QDeclarativeListProperty<Waypoint> waypoints READ waypoints NOTIFY waypointsChanged)
     //TODO: I bet those two need some magic to emit the right change notifications when game messes with the underlying list
 public:
 explicit Player(QObject *parent = 0);
@@ -50,6 +50,8 @@ void hqChanged(Buildable* arg);
 void startPosChanged(QPoint arg);
 
 void colorChanged(QColor arg);
+
+void waypointsChanged();
 
 public slots:
 
