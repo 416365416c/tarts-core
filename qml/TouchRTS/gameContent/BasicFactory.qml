@@ -9,7 +9,7 @@ BuildOption{
         property Waypoint exit;
         BuildOption{
             id: troop
-            needsControl: false;//The factory needed control, so it's fine
+            needsControl: true;//Exit point is currently relocatable
             MovingUnit{
                 id: innerContainer
                 Component{

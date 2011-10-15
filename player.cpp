@@ -34,7 +34,9 @@ void Player::ownUnit(Unit* unit)
 void Player::disownUnit(Unit* unit)
 {
     unit->setPlayer(0);
-    m_units.removeAll(unit);
-    m_nodes.removeAll(unit);
+    if(m_units.contains(unit)){
+        m_units.removeAll(unit);
+        m_nodes.removeAll(unit);
+    }
 }
 

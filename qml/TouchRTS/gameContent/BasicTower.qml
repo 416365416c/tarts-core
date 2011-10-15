@@ -10,8 +10,9 @@ Unit{
     Component{
         id: nodeVisualization
         Circle{
-            radius: parent.nodeRadius
-            anchors.centerIn: parent
+            property Unit unit
+            radius: unit.nodeRadius
+            anchors.centerIn: unit
             opacity: 0.2
         }
     }
@@ -43,7 +44,8 @@ Unit{
     onBorn: {
         rect.color = container.player.color;
         if(nodeRadius > 0){
-            var nodeVis = nodeVisualization.createObject(container);
+            var nodeVis = nodeVisualization.createObject(container.parent);
+            nodeVis.unit = container;
             nodeVis.color = container.player.color;
         }
     }

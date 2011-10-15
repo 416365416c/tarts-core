@@ -12,4 +12,9 @@ Rectangle{
         color: "goldenrod"
         target: modelData.next
     }
+    MouseArea{
+        drag.axis: Drag.XandYAxis
+        drag.target: modelData
+        anchors.fill:  parent
+    }
 }

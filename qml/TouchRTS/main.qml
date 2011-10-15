@@ -84,7 +84,13 @@ Rectangle {
         Repeater{
             model: game.players[0].waypoints
             delegate: WaypointDelegate{
-                 z: 1000
+                z: 1000
+            }
+        }
+        Repeater{
+            model: game.players[1].waypoints
+            delegate: WaypointDelegate{
+                z: 1000
             }
         }
 
