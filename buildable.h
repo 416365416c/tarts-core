@@ -3,7 +3,7 @@
 
 #include <QObject>
 #include <QUrl>
-class QDeclarativeComponent;
+class QQmlComponent;
 
 class Buildable : public QObject
 {
@@ -15,7 +15,7 @@ class Buildable : public QObject
     Q_PROPERTY(bool needsControl READ needsControl WRITE setNeedsControl NOTIFY needsControlChanged)
     //Delegate root object MUST be combatant? Or who cares?
     Q_CLASSINFO("DefaultProperty", "delegate")
-    Q_PROPERTY(QDeclarativeComponent* delegate READ delegate WRITE setDelegate NOTIFY delegateChanged)
+    Q_PROPERTY(QQmlComponent* delegate READ delegate WRITE setDelegate NOTIFY delegateChanged)
 public:
     explicit Buildable(QObject *parent = 0);
 
@@ -29,7 +29,7 @@ public:
         return m_iconSource;
     }
 
-    QDeclarativeComponent* delegate() const
+    QQmlComponent* delegate() const
     {
         return m_delegate;
     }
@@ -45,7 +45,7 @@ signals:
 
     void iconSourceChanged(QUrl arg);
 
-    void delegateChanged(QDeclarativeComponent* arg);
+    void delegateChanged(QQmlComponent* arg);
 
     void needsControlChanged(bool arg);
 
@@ -67,7 +67,7 @@ void setIconSource(QUrl arg)
     }
 }
 
-void setDelegate(QDeclarativeComponent* arg)
+void setDelegate(QQmlComponent* arg)
 {
     if (m_delegate != arg) {
         m_delegate = arg;
@@ -87,7 +87,7 @@ private:
 
 int m_cost;
 QUrl m_iconSource;
-QDeclarativeComponent* m_delegate;
+QQmlComponent* m_delegate;
 bool m_needsControl;
 };
 

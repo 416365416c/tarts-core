@@ -1,8 +1,8 @@
 #include "combatant.h"
 #include "game.h"
 
-Unit::Unit(QDeclarativeItem *parent) :
-    QDeclarativeItem(parent), m_player(0), m_sink(false), m_nodeRadius(0)
+Unit::Unit(QQuickItem *parent) :
+    QQuickItem(parent), m_player(0), m_sink(false), m_nodeRadius(0)
 {
 }
 

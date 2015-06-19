@@ -12,7 +12,7 @@ class MovingUnit : public Unit
     Q_PROPERTY(qreal speed READ speed WRITE setSpeed NOTIFY speedChanged)
     Q_PROPERTY(int stoppingRange READ stoppingRange WRITE setStoppingRange NOTIFY stoppingRangeChanged)
 public:
-    explicit MovingUnit(QDeclarativeItem *parent = 0);
+    explicit MovingUnit(QQuickItem *parent = 0);
 
     Waypoint* destination() const
     {

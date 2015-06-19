@@ -1,7 +1,7 @@
 #include "waypoint.h"
 
-Waypoint::Waypoint(QDeclarativeItem *parent) :
-    QDeclarativeItem(parent)
+Waypoint::Waypoint(QQuickItem *parent) :
+    QQuickItem(parent)
   , m_next(0)
   , m_attackMove(true)
   , m_waveSize(0)
@@ -10,8 +10,8 @@ Waypoint::Waypoint(QDeclarativeItem *parent) :
 {
 }
 
-Waypoint::Waypoint(Player* player, QDeclarativeItem *target, QDeclarativeItem *parent) :
-    QDeclarativeItem(parent)
+Waypoint::Waypoint(Player* player, QQuickItem *target, QQuickItem *parent) :
+    QQuickItem(parent)
   , m_next(0)
   , m_attackMove(true)
   , m_waveSize(0)

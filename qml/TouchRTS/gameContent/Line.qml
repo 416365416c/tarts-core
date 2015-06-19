@@ -1,4 +1,4 @@
-import QtQuick 1.0
+import QtQuick 2.1
 //Moved into Laser for some reason, but could finish moving it back some day.
 Rectangle { color: "blue"; radius: 2;
     id:r

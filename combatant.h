@@ -1,15 +1,15 @@
 #ifndef COMBATANT_H
 #define COMBATANT_H
 
-#include <QDeclarativeItem>
+#include <QQuickItem>
 
 class Player;
-class Unit : public QDeclarativeItem
+class Unit : public QQuickItem
 {
     Q_OBJECT
     //TODO: Below (commented) Properties are planned
     //Q_PROPERTY(int facing READ facing WRITE setFacing NOTIFY facingChanged)
-    //Q_PROPERTY(QDeclarativeListProperty<Ability> abilities READ abilities)
+    //Q_PROPERTY(QQmlListProperty<Ability> abilities READ abilities)
     //Ability would be a class encapsulating automatically targeted abilities, because they're damn complex blighters it seems :(
     Q_PROPERTY(int hp READ hp WRITE setHP NOTIFY hpChanged)
     Q_PROPERTY(bool sink READ isSink WRITE setSink NOTIFY sinkChanged)
@@ -18,7 +18,7 @@ class Unit : public QDeclarativeItem
     Q_PROPERTY(int nodeRadius READ nodeRadius WRITE setNodeRadius NOTIFY nodeRadiusChanged)
 
 public:
-    explicit Unit(QDeclarativeItem *parent = 0);
+    explicit Unit(QQuickItem *parent = 0);
     Q_INVOKABLE Unit* getTarget(int range);
 
     int hp() const

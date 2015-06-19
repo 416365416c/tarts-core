@@ -1,11 +1,11 @@
 #ifndef WAYPOINT_H
 #define WAYPOINT_H
 
-#include <QDeclarativeItem>
+#include <QQuickItem>
 
 class Player;
 class MovingUnit;
-class Waypoint : public QDeclarativeItem//Object, not Item, because it's data to be
+class Waypoint : public QQuickItem//Object, not Item, because it's data to be
 {
     Q_OBJECT
     Q_PROPERTY(Waypoint* next READ next WRITE setNext NOTIFY nextChanged)
@@ -15,8 +15,8 @@ class Waypoint : public QDeclarativeItem//Object, not Item, because it's data to
     Q_PROPERTY(Player* player READ player WRITE setPlayer NOTIFY playerChanged)
 
 public:
-    explicit Waypoint(QDeclarativeItem *parent = 0);
-    Waypoint(Player* player, QDeclarativeItem *target, QDeclarativeItem *parent);
+    explicit Waypoint(QQuickItem *parent = 0);
+    Waypoint(Player* player, QQuickItem *target, QQuickItem *parent);
 
     bool attackMove() const
     {

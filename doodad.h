@@ -1,16 +1,16 @@
 #ifndef DOODAD_H
 #define DOODAD_H
 
-#include <QDeclarativeItem>
+#include <QQuickItem>
 
-class Doodad : public QDeclarativeItem
+class Doodad : public QQuickItem
 {
     Q_OBJECT
     Q_PROPERTY(bool blocksPathing READ blocksPathing WRITE setBlocksPathing NOTIFY blocksPathingChanged);//TODO: Implement (when we have pathing)
     Q_PROPERTY(bool blocksLOS READ blocksLOS WRITE setBlocksLOS NOTIFY blocksLOSChanged);//TODO: Implement (when we have LOS)
     //blocksBuilding bool? So you can have 'unmazable' levels that are more TD like?
 public:
-    explicit Doodad(QDeclarativeItem *parent = 0);
+    explicit Doodad(QQuickItem *parent = 0);
 
     bool blocksPathing() const
     {

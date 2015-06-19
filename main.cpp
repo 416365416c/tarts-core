@@ -1,7 +1,7 @@
-#include <QtGui/QApplication>
-#include "qmlapplicationviewer.h"
-#include <qdeclarative.h>
-#include <QDeclarativeContext>
+#include <QtGui/QGuiApplication>
+#include <qqml.h>
+#include <QQmlApplicationEngine>
+#include <QQmlContext>
 #include "game.h"
 #include "player.h"
 #include "map.h"
@@ -13,7 +13,7 @@
 
 int main(int argc, char *argv[])
 {
-    QApplication app(argc, argv);
+    QGuiApplication app(argc, argv);
 
     const char* uri = "TouchRTS";
     qmlRegisterUncreatableType<Game>(uri, 0, 1, "Game", "Game is a C++ managed singleton.");
@@ -24,12 +24,10 @@ int main(int argc, char *argv[])
     qmlRegisterType<Unit>(uri, 0, 1, "Unit");
     qmlRegisterType<MovingUnit>(uri, 0, 1, "MovingUnit");
     qmlRegisterType<Waypoint>(uri, 0, 1, "Waypoint");
-    QmlApplicationViewer viewer;
-    Game::instance()->setEngine(viewer.engine());
-    viewer.rootContext()->setContextProperty("game", Game::instance());
-    viewer.setOrientation(QmlApplicationViewer::ScreenOrientationLockLandscape);
-    viewer.setMainQmlFile(QLatin1String("qml/TouchRTS/main.qml"));
-    viewer.showExpanded();
+    QQmlApplicationEngine engine;
+    Game::instance()->setEngine(&engine);
+    engine.rootContext()->setContextProperty("game", Game::instance());
+    engine.load(QUrl::fromLocalFile("qml/TouchRTS/main.qml"));
 
     return app.exec();
 }

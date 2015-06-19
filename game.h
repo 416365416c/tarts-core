@@ -6,12 +6,12 @@
 #include <QHash>
 #include <QPoint>
 #include <QVector>
-#include <QDeclarativeListProperty>
+#include <QQmlListProperty>
+#include <QQuickItem>
 
-class QDeclarativeEngine;
-class QDeclarativeComponent;
-class QDeclarativeItem;
-class QGraphicsItem;
+class QQmlEngine;
+class QQmlComponent;
+class QQmlItem;
 class Map;
 class Player;
 class Unit;
@@ -37,7 +37,7 @@ class Wave
 class Game : public QObject
 {
     Q_OBJECT
-    Q_PROPERTY(QDeclarativeListProperty<Player> players READ players NOTIFY playersChanged)//RO version, copy of map.players
+    Q_PROPERTY(QQmlListProperty<Player> players READ players NOTIFY playersChanged)//RO version, copy of map.players
     Q_PROPERTY(bool gameOver READ gameOver NOTIFY gameOverChanged)
 public:
     explicit Game(QObject *parent = 0);
@@ -51,13 +51,14 @@ public:
 
     Unit* findTarget(int range, Unit*);
     void cleanUp(Unit*);
-    void setEngine(QDeclarativeEngine* e)
+    void setEngine(QQmlEngine* e)
     {
         m_engine = e;
     }
 
-    QDeclarativeListProperty<Player> players(){
-        return QDeclarativeListProperty<Player>(this, m_players);
+    QQmlListProperty<Player> players(){
+        qDebug() << m_players;
+        return QQmlListProperty<Player>(this, m_players);
     }
 
     bool gameOver() const
@@ -76,20 +77,20 @@ signals:
 
 public slots:
     bool build(int x, int y, Buildable*, int playerIdx=0, Waypoint* dest=0);
-    void loadMap(const QUrl &url, QDeclarativeItem* parent);
+    void loadMap(const QUrl &url, QQuickItem* parent);
     void finishLoad();
     void gameTick();
 private:
-    void recursiveLoadStartState(QGraphicsItem* node);
+    void recursiveLoadStartState(QQuickItem* node);
     void addUnitToWaypoint(MovingUnit* munit, Waypoint* way);
     void teleportUnitToWaypoint(MovingUnit* munit, Waypoint* way);
     static Game* m_instance;
 
     QObject* m_debugText;
-    QDeclarativeEngine* m_engine;
-    QDeclarativeComponent* m_cc;
+    QQmlEngine* m_engine;
+    QQmlComponent* m_cc;
 
-    QDeclarativeItem* m_gameArea;
+    QQuickItem* m_gameArea;
     Map* m_currentMap;
     QList<Doodad*> m_doodads;
     QList<Player*> m_players;

@@ -1,6 +1,6 @@
 #include "doodad.h"
 
-Doodad::Doodad(QDeclarativeItem *parent) :
-    QDeclarativeItem(parent)
+Doodad::Doodad(QQuickItem *parent) :
+    QQuickItem(parent)
 {
 }

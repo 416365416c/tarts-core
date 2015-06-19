@@ -4,7 +4,7 @@
 #include <QObject>
 #include <QPoint>
 #include <QColor>
-#include <QDeclarativeListProperty>
+#include <QQmlListProperty>
 
 class Buildable;
 class Unit;
@@ -13,21 +13,21 @@ class Waypoint;
 class Player : public QObject
 {
     Q_OBJECT
-    Q_PROPERTY(QDeclarativeListProperty<Buildable> buildOptions READ buildOptions)
+    Q_PROPERTY(QQmlListProperty<Buildable> buildOptions READ buildOptions)
     Q_PROPERTY(Buildable* hq READ hq WRITE setHQ NOTIFY hqChanged)
     Q_PROPERTY(QPoint startPos READ startPos WRITE setStartPos NOTIFY startPosChanged)
     Q_PROPERTY(QColor color READ setColor WRITE setColor NOTIFY colorChanged)
 
     //TODO: Use the custom append function to remove units from any other player lists if you add them here.
-    Q_PROPERTY(QDeclarativeListProperty<Unit> units READ units)
-    Q_PROPERTY(QDeclarativeListProperty<Waypoint> waypoints READ waypoints NOTIFY waypointsChanged)
+    Q_PROPERTY(QQmlListProperty<Unit> units READ units)
+    Q_PROPERTY(QQmlListProperty<Waypoint> waypoints READ waypoints NOTIFY waypointsChanged)
     //TODO: I bet those two need some magic to emit the right change notifications when game messes with the underlying list
 public:
 explicit Player(QObject *parent = 0);
 
-    QDeclarativeListProperty<Buildable> buildOptions();
-    QDeclarativeListProperty<Unit> units();
-    QDeclarativeListProperty<Waypoint> waypoints();
+    QQmlListProperty<Buildable> buildOptions();
+    QQmlListProperty<Unit> units();
+    QQmlListProperty<Waypoint> waypoints();
     Buildable* hq() const
     {
         return m_hq;

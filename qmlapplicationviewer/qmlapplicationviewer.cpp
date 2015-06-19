@@ -13,9 +13,9 @@
 #include <QtCore/QCoreApplication>
 #include <QtCore/QDir>
 #include <QtCore/QFileInfo>
-#include <QtDeclarative/QDeclarativeComponent>
-#include <QtDeclarative/QDeclarativeEngine>
-#include <QtDeclarative/QDeclarativeContext>
+#include <QtQuick/QQuickComponent>
+#include <QtQuick/QQuickEngine>
+#include <QtQuick/QQuickContext>
 
 #if defined(QMLJSDEBUGGER)
 #include <qt_private/qdeclarativedebughelper_p.h>
@@ -30,16 +30,16 @@
 
 #if defined(QMLJSDEBUGGER)
 
-// Enable debugging before any QDeclarativeEngine is created
+// Enable debugging before any QQuickEngine is created
 struct QmlJsDebuggingEnabler
 {
     QmlJsDebuggingEnabler()
     {
-        QDeclarativeDebugHelper::enableDebugging();
+        QQuickDebugHelper::enableDebugging();
     }
 };
 
-// Execute code in constructor before first QDeclarativeEngine is instantiated
+// Execute code in constructor before first QQuickEngine is instantiated
 static QmlJsDebuggingEnabler enableDebuggingHelper;
 
 #endif // QMLJSDEBUGGER
@@ -72,16 +72,16 @@ QString QmlApplicationViewerPrivate::adjustPath(const QString &path)
 }
 
 QmlApplicationViewer::QmlApplicationViewer(QWidget *parent) :
-    QDeclarativeView(parent),
+    QQuickView(parent),
     m_d(new QmlApplicationViewerPrivate)
 {
     connect(engine(), SIGNAL(quit()), SLOT(close()));
-    setResizeMode(QDeclarativeView::SizeRootObjectToView);
+    setResizeMode(QQuickView::SizeRootObjectToView);
 #if defined(QMLJSDEBUGGER) && !defined(NO_JSDEBUGGER)
     new QmlJSDebugger::JSDebuggerAgent(engine());
 #endif
 #if defined(QMLJSDEBUGGER) && !defined(NO_QMLOBSERVER)
-    new QmlJSDebugger::QDeclarativeViewObserver(this, this);
+    new QmlJSDebugger::QQuickViewObserver(this, this);
 #endif
 }
 

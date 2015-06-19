@@ -6,8 +6,8 @@
 #include "player.h"
 #include "waypoint.h"
 #include "movingunit.h"
-#include <QDeclarativeComponent>
-#include <QDeclarativeItem>
+#include <QQmlComponent>
+#include <QQuickItem>
 #include <QTimer>
 #include <QRect>
 #include <QPoint>
@@ -76,7 +76,7 @@ Game::Game(QObject *parent) :
     testRangeFunctions();
 }
 
-void Game::loadMap(const QUrl &url, QDeclarativeItem* parent)
+void Game::loadMap(const QUrl &url, QQuickItem* parent)
 {
     m_players.clear();
     //TODO: CLEAN UP PREVIOUS MAP Properly (esp units)!
@@ -84,11 +84,11 @@ void Game::loadMap(const QUrl &url, QDeclarativeItem* parent)
         return;
     qDebug() << "loading " << url;
     if(!m_cc)
-        m_cc = new QDeclarativeComponent(m_engine,  this);
+        m_cc = new QQmlComponent(m_engine,  this);
     m_cc->loadUrl(url);
     m_gameArea = parent;
     if(m_cc->isLoading())
-        connect(m_cc, SIGNAL(statusChanged(QDeclarativeComponent::Status)),
+        connect(m_cc, SIGNAL(statusChanged(QQmlComponent::Status)),
                 this, SLOT(finishLoad()));
     else
         finishLoad();
@@ -124,15 +124,15 @@ void Game::finishLoad(){
     QTimer::singleShot(16, this, SLOT(gameTick()));
 }
 
-void Game::recursiveLoadStartState(QGraphicsItem *node)
+void Game::recursiveLoadStartState(QQuickItem *node)
 {
-    foreach(QGraphicsItem* child, node->childItems()){
-        Unit* startingUnit = qobject_cast<Unit*>(child->toGraphicsObject());
+    foreach(QQuickItem* child, node->childItems()){
+        Unit* startingUnit = qobject_cast<Unit*>(child);
         if(startingUnit){
             startingUnit->player()->m_units << startingUnit;
             startingUnit->born();
         }
-        Doodad* doodad = qobject_cast<Doodad*>(child->toGraphicsObject());
+        Doodad* doodad = qobject_cast<Doodad*>(child);
         if(doodad){
             m_doodads << doodad;
         }
@@ -171,7 +171,7 @@ bool Game::build(int x, int y, Buildable* b, int playerIdx, Waypoint* dest)
     if(m_gameOver)
         return false;
 
-    QDeclarativeComponent* cc = b->delegate();
+    QQmlComponent* cc = b->delegate();
     QObject* obj = cc->create(qmlContext(m_currentMap));
     Unit* unit = qobject_cast<Unit*>(obj);
     if(!unit){

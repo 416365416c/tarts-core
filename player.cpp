@@ -7,19 +7,19 @@ Player::Player(QObject *parent) :
 }
 
 
-QDeclarativeListProperty<Buildable> Player::buildOptions()
+QQmlListProperty<Buildable> Player::buildOptions()
 {
-    return QDeclarativeListProperty<Buildable>(this, m_buildOptions);//TODO: Memory Management
+    return QQmlListProperty<Buildable>(this, m_buildOptions);//TODO: Memory Management
 }
 
-QDeclarativeListProperty<Unit> Player::units()
+QQmlListProperty<Unit> Player::units()
 {
-    return QDeclarativeListProperty<Unit>(this, m_units);
+    return QQmlListProperty<Unit>(this, m_units);
 }
 
-QDeclarativeListProperty<Waypoint> Player::waypoints()
+QQmlListProperty<Waypoint> Player::waypoints()
 {
-    return QDeclarativeListProperty<Waypoint>(this, m_waypoints);//TODO: Memory Management?
+    return QQmlListProperty<Waypoint>(this, m_waypoints);//TODO: Memory Management?
 }
 
 //###Convenience and internal logic functions, move to Game?

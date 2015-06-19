@@ -1,28 +1,28 @@
 #ifndef MAP_H
 #define MAP_H
 
-#include <QDeclarativeItem>
-#include <QDeclarativeListProperty>
+#include <QQuickItem>
+#include <QQmlListProperty>
 
 class Player;
-class Map : public QDeclarativeItem
+class Map : public QQuickItem
 {
     Q_OBJECT
     //For convenicence and theoretical completeness, 1 game square is 1 pixel - so maps width/height is the QDItem width/height. Same with object locations upon it.
     Q_PROPERTY(QString title READ title WRITE setTitle NOTIFY titleChanged)
-    //Q_PROPERTY(QDeclarativeListProperty<QObject> startingObjects READ startingObjects)//###Just children?
-    Q_PROPERTY(QDeclarativeListProperty<Player> players READ players)
+    //Q_PROPERTY(QQmlListProperty<QObject> startingObjects READ startingObjects)//###Just children?
+    Q_PROPERTY(QQmlListProperty<Player> players READ players)
     //TODO: Nodes
 
 public:
-    explicit Map(QDeclarativeItem *parent = 0);
+    explicit Map(QQuickItem *parent = 0);
 
     QString title() const
     {
         return m_title;
     }
 
-    QDeclarativeListProperty<Player> players();
+    QQmlListProperty<Player> players();
 
 signals:
 
